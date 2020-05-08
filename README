@@ -1,0 +1,39 @@
+
+
+** Following documents structure of code from Shell 1 **
+My shell is composed of the following .c files:
+built_in, parse, read, redirect, and sh.
+
+sh.c contains the main while loop of the shell.
+It first clears all the variables used for reading and
+parsing the input, then reads in the input.
+A preliminary parsing phase checks for CTRL-D signal 
+or blank space which either exits or continues
+the loop. Then parsing begins, checking for 
+redirection and for built_in functions. Finally,
+a fork is made to create a child process to execute the program.
+
+read.c parses buffer for CTRL-D or blank line input and 
+reads the input into an array of whitespace delimited *chars.
+
+parse.c contains all the logic for parsing if the input 
+is not CTRL-D or a blank line.
+
+built_in.c contains wrapper functions for the syscall
+commands.
+
+redirect.c handles file redirection and opens files when necessary.
+** End Shell 1**
+
+In Shell 2, in addition to including jobs.c and jobs.h,
+I created some new files, reaper.c and reaper.h, for the 
+purpose of reaping processes and printing relevant information
+on jobs. Most changes are made in the
+main shell file sh.c. Other changes include parsing for "&" 
+as input and fixing memory leaks in read.c, and implementing 
+the built-in functions-fg, bg, and jobs-in built_in.c.
+The main changes in sh.c include-
+    - ignoring signals in the shell itself
+    - reenabling signals in child process
+    - changing terminal control to fg and back after completion
+    - support to run fg and bg processes
